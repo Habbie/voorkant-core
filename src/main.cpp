@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
   if (backend.Connect(HA_URL, GetEnv("HA_API_TOKEN"))) {
     cout << "Connect succesful. Starting." << endl;
 
-    std::thread ui(uithread, std::ref(backend), argc, argv);
+    std::thread ui(uithread, std::ref(backend), argc,    argv);
     ui.join();
   }
 }
