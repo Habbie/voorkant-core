@@ -96,6 +96,7 @@ void uithread(HABackend& backend, int argc, char* argv[])
   }
   else {
     cerr << "no command given" << endl;
+    return
   }
 
   backend.Start();
@@ -141,9 +142,7 @@ void uithread(HABackend& backend, int argc, char* argv[])
   lv_label_set_text(label, "Button"); /*Set the labels text*/
   lv_obj_center(label);
   // END BUTTON EXAMPLE
-  cerr << "blla:" << current_light << endl;
   auto state = backend.GetState(current_light);
-  cerr << "WTF" << endl;
   std::string colormode = state->getJsonState()["attributes"]["color_mode"];
   cout << "colormode=" << colormode << endl;
 
