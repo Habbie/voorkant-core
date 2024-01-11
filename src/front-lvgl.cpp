@@ -141,10 +141,11 @@ void uithread(HABackend& backend, int argc, char* argv[])
   lv_label_set_text(label, "Button"); /*Set the labels text*/
   lv_obj_center(label);
   // END BUTTON EXAMPLE
-
+  cerr << "blla:" << current_light << endl;
   auto state = backend.GetState(current_light);
+  cerr << "WTF" << endl;
   std::string colormode = state->getJsonState()["attributes"]["color_mode"];
-  cout<<"colormode="<<colormode<<endl;
+  cout << "colormode=" << colormode << endl;
 
   for (size_t i = 0; i < colormode.length(); i++) {
     /*Create a slider in the center of the display*/
@@ -177,7 +178,7 @@ void uithread(HABackend& backend, int argc, char* argv[])
       json cmd;
 
       cmd["type"] = "call_service";
-      cmd["domain"] = backend.GetState(current_light)->getDomain();
+      cmd["domain"] = backend.GetState(current_light)->domain;
       cmd["service"] = "toggle";
       cmd["target"]["entity_id"] = current_light;
 
@@ -197,7 +198,7 @@ void uithread(HABackend& backend, int argc, char* argv[])
       }
 
       cmd["type"] = "call_service";
-      cmd["domain"] = backend.GetState(current_light)->getDomain();
+      cmd["domain"] = backend.GetState(current_light)->domain;
       cmd["service"] = "turn_on";
       cmd["target"]["entity_id"] = current_light;
       cmd["service_data"][colormodemode] = color;
@@ -214,14 +215,14 @@ void uithread(HABackend& backend, int argc, char* argv[])
         auto color = attrs[colormodemode];
         // cout<<"RGB "<<rgb<<endl;
         // if (rgb.size() == 3) {
-          for (int i = 0; i < color.size(); i++) {
-            lv_slider_set_value(colorsliders[i].first, color[i], LV_ANIM_OFF);
+        for (int i = 0; i < color.size(); i++) {
+          lv_slider_set_value(colorsliders[i].first, color[i], LV_ANIM_OFF);
 
-            // this label setting code is duplicated from slider_event_cb, because LV_EVENT_VALUE_CHANGED does not fire when -we- change it (https://docs.lvgl.io/latest/en/html/widgets/slider.html)
-            // and we don't want to pass the old value back to HA (which slider_event_cb would happily do for us), because that causes a super fun oscillation
-            lv_label_set_text_fmt(colorsliders[i].second, "%" LV_PRId32, color[i].get<int>());
-            // lv_obj_align_to(colorsliders[i].second, colorsliders[i].first, LV_ALIGN_OUT_RIGHT_MID, 15, 0); /*Align top of the slider*/
-          }
+          // this label setting code is duplicated from slider_event_cb, because LV_EVENT_VALUE_CHANGED does not fire when -we- change it (https://docs.lvgl.io/latest/en/html/widgets/slider.html)
+          // and we don't want to pass the old value back to HA (which slider_event_cb would happily do for us), because that causes a super fun oscillation
+          lv_label_set_text_fmt(colorsliders[i].second, "%" LV_PRId32, color[i].get<int>());
+          // lv_obj_align_to(colorsliders[i].second, colorsliders[i].first, LV_ALIGN_OUT_RIGHT_MID, 15, 0); /*Align top of the slider*/
+        }
         // }
       }
       lv_obj_set_style_bg_color(lv_scr_act(), lv_color_hex(intFromRGB(attrs)), LV_PART_MAIN);
@@ -251,7 +252,7 @@ void uithread_refresh(HABackend* backend, std::vector<std::string> whatchanged) 
     cout << "state for " << changed << " is " << state->getInfo() << endl;
     auto attrs = state->getJsonState()["attributes"];
     cout << attrs << endl;
-    if (state->getDomain() == "light") {
+    if (state->domain == EntityType::light) {
       // current_light = changed;  moved to a command line flag for now
     }
     // if(attrs.count("rgb_color")) {
