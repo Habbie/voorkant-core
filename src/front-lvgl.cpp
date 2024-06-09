@@ -169,8 +169,8 @@ void uithread(int _argc, char* _argv[])
 
   static lv_style_t style;
   lv_style_init(&style);
-  lv_style_set_bg_color(&style, lv_color_hex(0xc0c0c0));
-  lv_style_set_radius(&style, lv_coord_t(0));
+  // lv_style_set_bg_color(&style, lv_color_hex(0xc0c0c0));
+  // lv_style_set_radius(&style, lv_coord_t(0));
   lv_obj_add_style(bottom_row, &style, 0);
 
   lv_obj_t* left_btn = lv_btn_create(bottom_row);
@@ -184,6 +184,11 @@ void uithread(int _argc, char* _argv[])
   lv_obj_t* right_btn_txt = lv_label_create(right_btn);
   lv_label_set_text(right_btn_txt, LV_SYMBOL_RIGHT);
   lv_obj_add_event_cb(right_btn, btnRightPress, LV_EVENT_CLICKED, NULL);
+
+  lv_obj_t* info_btn = lv_btn_create(bottom_row);
+  lv_obj_t* info_btn_txt  = lv_label_create(info_btn);
+  lv_label_set_text(info_btn_txt , "(i)");
+  lv_obj_add_event_cb(info_btn, btnRightPress, LV_EVENT_CLICKED, NULL);
 
   lv_log_register_print_cb(lvLogCallback);
 
