@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-armel:
-    runs-on: ubicloud-standard-2-arm
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
       with:
