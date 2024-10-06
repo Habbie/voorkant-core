@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-armel:
-    runs-on: ${{ github.ref }}
+    runs-on: ${{ github.repository }}
     steps:
     - uses: actions/checkout@v4
       with:
