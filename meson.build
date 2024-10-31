@@ -160,6 +160,9 @@ incdir = include_directories('./src/')
 openssl_dep = dependency('openssl')
 zlib_dep = dependency('zlib')
 
+opentelemetry_api_dep = dependency('opentelemetry_api')
+opentelemetry_exporter_ostream_span_dep = dependency('opentelemetry_exporter_ostream_span')
+
 if get_option('front-ftxui').enabled()
     ftxui_screen_dep = dependency('ftxui-screen')
     ftxui_dom_dep = dependency('ftxui-dom')
@@ -213,6 +216,7 @@ executable(
         openssl_dep,
         zlib_dep,
         libatomic,
+        opentelemetry_api_dep
     ],
 )
 
