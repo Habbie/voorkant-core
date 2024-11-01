@@ -161,7 +161,12 @@ openssl_dep = dependency('openssl')
 zlib_dep = dependency('zlib')
 
 opentelemetry_api_dep = dependency('opentelemetry_api')
-opentelemetry_exporter_ostream_span_dep = dependency('opentelemetry_exporter_ostream_span')
+opentelemetry_common_dep = dependency('opentelemetry_common')
+opentelemetry_logs_dep = dependency('opentelemetry_logs')
+opentelemetry_metrics_dep = dependency('opentelemetry_metrics')
+opentelemetry_resources_dep = dependency('opentelemetry_resources')
+opentelemetry_trace_dep = dependency('opentelemetry_trace')
+opentelemetry_exporter_ostream_span_dep = declare_dependency(link_args: '-lopentelemetry_exporter_ostream_span')
 
 if get_option('front-ftxui').enabled()
     ftxui_screen_dep = dependency('ftxui-screen')
@@ -216,7 +221,13 @@ executable(
         openssl_dep,
         zlib_dep,
         libatomic,
-        opentelemetry_api_dep
+        opentelemetry_api_dep,
+        opentelemetry_common_dep,
+        opentelemetry_logs_dep,
+        opentelemetry_metrics_dep,
+        opentelemetry_resources_dep,
+        opentelemetry_trace_dep,
+        opentelemetry_exporter_ostream_span_dep,
     ],
 )
 

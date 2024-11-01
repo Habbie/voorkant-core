@@ -9,7 +9,12 @@ RUN apt-get -yy install \
     pkg-config \
     libsdl2-dev \
     libssl-dev \
+    opentelemetry-cpp-dev \
     python3-pip \
     xxd
+
+# TODO: file debbug about having to install these
+RUN apt-get -yy install \
+    libabsl-dev
 RUN pip install --break-system-packages meson
 RUN git config --global --add safe.directory '*'  # this makes meson's vcs_tag() work

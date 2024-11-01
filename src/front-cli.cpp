@@ -72,6 +72,12 @@ private:
 
 void uithread(int _argc, char* _argv[])
 {
+  InitTracer();
+  srand((int)time(0));
+
+  auto tracer = opentelemetry::trace::Provider::GetTracerProvider()->GetTracer("my-app-tracer");
+  auto span = tracer->StartSpan("RollDiceServer");
+
   argparse::ArgumentParser program("voorkant-cli", getVersion());
   argparse::ArgumentParser version_command("version");
   program.add_subparser(version_command);
@@ -96,6 +102,9 @@ void uithread(int _argc, char* _argv[])
   dump_command.add_argument("data").help("optional data to pass with the command").default_value("{}");
 
   program.add_subparser(dump_command);
+
+  sleep(1);
+  span->End();
 
   try {
     program.parse_args(_argc, _argv);
