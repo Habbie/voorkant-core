@@ -12,9 +12,6 @@ jobs:
     runs-on: 'ubuntu-24.04'
     container: debian:12
     steps:
-    - uses: actions/checkout@v4
-      with:
-        submodules: recursive
     - name: install required tools and libs
       run: |
         apt-get update
@@ -30,6 +27,9 @@ jobs:
           unzip \
           wget \
           zstd
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
     - name: Get the SDK
       run: |
         # in December 2024/January 2025, https://downloads.openwrt.org/snapshots/targets/mxs/generic/openwrt-sdk-mxs-generic_gcc-13.3.0_musl_eabi.Linux-x86_64.tar.zst
