@@ -10,15 +10,26 @@ on:
 jobs:
   build-armel-owrt:
     runs-on: 'ubuntu-24.04'
+    container: debian:12
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
-    - name: install extra deps for nektos/act
-      if: ${{ env.ACT }}
+    - name: install required tools and libs
       run: |
-        sudo apt-get update
-        sudo apt-get -y install rsync
+        apt-get update
+        apt-get -y install \
+          build-essential \
+          file \
+          gawk \
+          git \
+          libncurses5-dev \
+          nodejs \
+          python3-distutils \
+          rsync \
+          unzip \
+          wget \
+          zstd
     - name: Get the SDK
       run: |
         # in December 2024/January 2025, https://downloads.openwrt.org/snapshots/targets/mxs/generic/openwrt-sdk-mxs-generic_gcc-13.3.0_musl_eabi.Linux-x86_64.tar.zst
