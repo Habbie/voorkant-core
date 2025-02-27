@@ -14,6 +14,8 @@ jobs:
     steps:
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
+      with:
+        detached: true
     - name: install required tools and libs
       run: |
         apt-get update
