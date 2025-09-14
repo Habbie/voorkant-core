@@ -104,7 +104,7 @@ UIApexCard::UIApexCard(json _card, lv_obj_t* _parent) :
   chart = lv_chart_create(flowpanel);
   lv_obj_set_grid_cell(chart, LV_GRID_ALIGN_CENTER, 1, 1, LV_GRID_ALIGN_CENTER, 1, 1);
   // lv_obj_set_size(chart, uiEntityWidth * 3 - 100 - 25, /* MY_DISP_VER_RES */ 480 * 0.65 - 30);
-  // lv_obj_set_width(chart, LV_PCT(100));
+  lv_obj_set_width(chart, LV_PCT(92));
   lv_obj_set_height(chart, LV_PCT(80));
   // lv_obj_set_align(chart, LV_ALIGN_CENTER);
 
