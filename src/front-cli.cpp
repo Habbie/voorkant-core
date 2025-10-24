@@ -84,7 +84,7 @@ void uithread(int _argc, char* _argv[])
     // FIXME: now actually use the argument
     string domain = subscribe_command.get<string>("domain");
     if (!domain.empty()) {
-      cout << "should subscribe to " << subscribe_command.get<string>("domain") << endl;
+      cerr << "should subscribe to " << subscribe_command.get<string>("domain") << endl;
     }
     else {
       cerr << "No domain provided!" << endl;
