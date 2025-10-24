@@ -32,6 +32,7 @@ public:
   {
     g_log << Logger::Debug << "Received uiupdate for " << haentity->name << ":" << std::endl;
     g_log << Logger::Debug << haentity->getInfo() << std::endl;
+    cout << haentity->getJsonState() << std::endl;
   }
 
 private:
